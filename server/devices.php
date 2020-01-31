@@ -2,7 +2,7 @@
 session_start();
     if (!isset($_SESSION['user_id'])) header('Location: ./login.html');
 
-    $con = new mysqli("127.0.0.1", "root", "root", "ALARM_SYSTEM");
+    require_once "./config.php";
     $stmt = $con->prepare("SELECT * FROM modules WHERE userId = ?");
     $stmt->bind_param('i', $_SESSION['user_id']);
     $stmt->execute();

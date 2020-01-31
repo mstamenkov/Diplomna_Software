@@ -2,24 +2,33 @@
     session_start();
     $username = filter_input(INPUT_POST, 'username');
     $password = filter_input(INPUT_POST, 'password');
+    $conf_password = filter_input(INPUT_POST, 'conf_password');
 
-    if (!empty($username) and !empty($password)){
-        $link = mysqli_connect("127.0.0.1", "root", "root", "ALARM_SYSTEM");
-
+    if (!empty($username) and !empty($password) and !empty($conf_password)){
+        require_once "./config.php";
         if (mysqli_connect_error()){
             die('Connect Error ('. mysqli_connect_errno() .') '
                 . mysqli_connect_error());
         }
         else{
-            $stmt = $link->prepare("SELECT * FROM users WHERE username = ?");
+            if($password != $conf_password){
+                echo ("entered passwords are not same");
+                header("refresh:3;url=register.html");
+                die();
+            }
+            $stmt = $con->prepare("SELECT * FROM users WHERE username = ?");
             $stmt->bind_param('s', $username);
             $stmt->execute();
             $result = $stmt->get_result();
             $user = $result->fetch_object();
 
-            if(!is_null($user))exit("username is already taken");
+            if(!is_null($user)){
+                echo("username is already taken");
+                header("refresh:3;url=register.html");
+                die();
+            }
 
-            $stmt = $link->prepare("INSERT INTO users(username,password) values(?,?)");
+            $stmt = $con->prepare("INSERT INTO users(username,password) values(?,?)");
             $password_hash = password_hash($password,PASSWORD_DEFAULT);
             $stmt->bind_param("ss", $username,$password_hash);
                 if ($stmt->execute()) {
@@ -31,7 +40,7 @@
 
 
 
-            mysqli_close($link);
+            mysqli_close($con);
         }
     }
     else{

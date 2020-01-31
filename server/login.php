@@ -6,7 +6,7 @@
 if ( ! empty( $_POST ) ) {
     if ( isset($username) && isset($password) ) {
         // Getting submitted user data from database
-        $con = new mysqli("127.0.0.1", "root", "root", "ALARM_SYSTEM");
+        require_once "./config.php";
         $stmt = $con->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->bind_param('s', $username);
         $stmt->execute();
