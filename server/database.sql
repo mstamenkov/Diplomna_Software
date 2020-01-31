@@ -19,7 +19,8 @@ CREATE TABLE moduleData(
     moduleId INT not null,
     latitude DECIMAL(10, 8) not null,
     longitude DECIMAL(11, 8) NOT NULL,
-    imuEvent INT not null
+    imuEvent INT not null,
+    foreign key (moduleId) references modules(id) on update cascade on delete cascade
 );
 
 #Create table userModules(
@@ -33,7 +34,7 @@ CREATE TABLE moduleData(
 
 #insert into users(username,password) values('mitko','ggg');
 #insert into users(username,password) values('gosho','ggg');
-insert into modules(id,userId) values(43653546,1);
+#insert into modules(id,userId) values(43653546,1);
 #insert into userModules(moduleId,userId) values(43653546,1);
 
 #select * from userModules where userId
