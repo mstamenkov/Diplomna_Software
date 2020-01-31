@@ -14,16 +14,21 @@ if ( ! empty( $_POST ) ) {
         $user = $result->fetch_object();
         if(is_null($user)){
             echo("There is no user with this username");
-            header("refresh:5;url=login.html");
+            header("refresh:3;url=login.html");
             die();
         }
 
         // Verify user password and set $_SESSION
         if ( password_verify($password, $user->password ) ) {
             $_SESSION['user_id'] = $user->id;
-            header("Location: ./index.html");
+            $_SESSION['username'] = $username;
+            header("Location: ./index.php");
         }
-        else echo("no match");
+        else{
+            echo("no match");
+            header("refresh:3;url=login.html");
+        }
+
     }
 }
 else echo("no");

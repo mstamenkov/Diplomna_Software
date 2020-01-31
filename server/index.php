@@ -41,9 +41,7 @@ if(!isset($_SESSION['user_id']))header('Location: ./login.html');
         <div style="display: inline-flex">
             <span><li><a href ="#" id="active">Начало</a></li></span>
             <span><li><a href ="./devices.php">Модули</a></li></span>
-            <span><li><a href ="./buy.html">Купи</a></li></span>
-            <span><li><a href ="./check.html">Провери валидност</a></li></span>
-            <span><li><a href ="./about-us.html">За нас</a></li></span>
+            <span><li><a href ="./logout.php">Изход</a></li></span>
         </div>
     </ul>
 </div>
