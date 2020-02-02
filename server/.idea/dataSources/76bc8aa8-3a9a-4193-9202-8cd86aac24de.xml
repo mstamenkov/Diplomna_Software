@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="MySQL - ALARM_SYSTEM@localhost">
+<dataSource name="MySQL for 5.1 - ALARM_SYSTEM@localhost">
   <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.17">
     <root id="1">
-      <ServerVersion>5.7.28</ServerVersion>
+      <ServerVersion>5.7.29</ServerVersion>
       <DefaultEngine>InnoDB</DefaultEngine>
       <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
       <DefaultCasing>exact</DefaultCasing>
@@ -926,107 +926,104 @@
       <Charset>utf8mb4</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
-    <table id="234" parent="2" name="Modules"/>
-    <table id="235" parent="2" name="UserModules"/>
-    <table id="236" parent="2" name="Users"/>
-    <table id="237" parent="5" name="users"/>
-    <column id="238" parent="234" name="Id">
-      <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <key id="239" parent="234" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>Id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="240" parent="235" name="RecordId">
+    <table id="234" parent="2" name="moduleData"/>
+    <table id="235" parent="2" name="modules"/>
+    <table id="236" parent="2" name="users"/>
+    <column id="237" parent="234" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="241" parent="235" name="ModuleId">
+    <column id="238" parent="234" name="moduleId">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="242" parent="235" name="UserId">
+    <column id="239" parent="234" name="latitude">
       <Position>3</Position>
+      <DataType>decimal(10,8 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="240" parent="234" name="longitude">
+      <Position>4</Position>
+      <DataType>decimal(11,8 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="241" parent="234" name="imuEvent">
+      <Position>5</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="243" parent="235" name="ModuleId">
-      <ColNames>ModuleId</ColNames>
+    <index id="242" parent="234" name="moduleId">
+      <ColNames>moduleId</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="244" parent="235" name="UserId">
-      <ColNames>UserId</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="245" parent="235" name="PRIMARY">
+    <key id="243" parent="234" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>RecordId</ColNames>
+      <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="246" parent="235" name="UserModules_ibfk_1">
-      <ColNames>ModuleId</ColNames>
-      <RefTableName>Modules</RefTableName>
-      <RefColNames>Id</RefColNames>
+    <foreign-key id="244" parent="234" name="moduleData_ibfk_1">
+      <ColNames>moduleId</ColNames>
+      <RefTableName>modules</RefTableName>
+      <RefColNames>id</RefColNames>
       <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="247" parent="235" name="UserModules_ibfk_2">
-      <ColNames>UserId</ColNames>
-      <RefTableName>Users</RefTableName>
-      <RefColNames>Id</RefColNames>
+    <column id="245" parent="235" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="246" parent="235" name="userId">
+      <Position>2</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="247" parent="235" name="userId">
+      <ColNames>userId</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="248" parent="235" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="249" parent="235" name="modules_ibfk_1">
+      <ColNames>userId</ColNames>
+      <RefTableName>users</RefTableName>
+      <RefColNames>id</RefColNames>
       <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="248" parent="236" name="Id">
+    <column id="250" parent="236" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="249" parent="236" name="Username">
+    <column id="251" parent="236" name="username">
       <Position>2</Position>
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="250" parent="236" name="Password">
+    <column id="252" parent="236" name="password">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="251" parent="236" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>Id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="252" parent="237" name="id">
-      <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="253" parent="237" name="username">
-      <Position>2</Position>
-      <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="254" parent="237" name="password">
-      <Position>3</Position>
-      <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <key id="255" parent="237" name="PRIMARY">
+    <key id="253" parent="236" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

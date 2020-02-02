@@ -40,7 +40,7 @@ if ( !empty( $_POST ) || !empty($_GET['apicall']) ) {
             header("refresh:3;url=login.html");
         }
 
-    }else echo(no);
+    }else echo('no');
 
 }
     //mysqli_close($link);

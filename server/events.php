@@ -1,6 +1,25 @@
 <?php
 session_start();
-if(!isset($_SESSION['user_id']))header('Location: ./login.html');
+if(empty($_GET['apicall'])){
+    require_once "./config.php";
+    if (!isset($_SESSION['user_id'])) header('Location: ./login.html');
+    $id = $_SESSION['user_id'];
+    $stmt = $con->prepare("SELECT * FROM moduleData LEFT JOIN modules m on m.userId = $id WHERE moduleId = m.id ;");
+    //$stmt->bind_param('i', $row[0]);
+    $stmt->execute();
+    $result = $stmt->get_result();
+}else{
+    require_once "./config.php";
+    $username = $_GET['username'];
+    $stmt = $con->prepare("SELECT id FROM users WHERE username = ?");
+    $stmt->bind_param('i', $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = mysqli_fetch_row($result);
+
+}
+
+//echo $modules->id;
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,20 +34,9 @@ if(!isset($_SESSION['user_id']))header('Location: ./login.html');
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
-    <style>
-        /* Always set the map height explicitly to define the size of the div
-         * element that contains the map. */
-        #map {
-            height: 100%;
-        }
-        /* Optional: Makes the sample page fill the window. */
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-    </style>
+
 </head>
+
 <body>
 <div class="header_box">
     <ul>
@@ -39,33 +47,23 @@ if(!isset($_SESSION['user_id']))header('Location: ./login.html');
             <span style="font-weight: bold; margin-bottom: 1%">Народна Република България</span><br>Министерство на транспорта<br/>Главно управление на пътищата
         </div>
         <div style="display: inline-flex">
-            <span><li><a href ="#" id="active">Начало</a></li></span>
+            <span><li><a href ="index.php">Начало</a></li></span>
             <span><li><a href ="./devices.php">Модули</a></li></span>
-            <span><li><a href ="./events.php">Данни</a></li></span>
+            <span><li><a href ="./events.php" id="active">Данни</a></li></span>
             <span><li><a href ="./logout.php">Изход</a></li></span>
         </div>
     </ul>
 </div>
-<div class="block" style="height: 90%">
-<div id="map"></div>
-<script>
-    function initMap() {
-        var myLatLng = {lat: 42.698334, lng: 23.319941};
-
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 4,
-            center: myLatLng
-        });
-
-        var marker = new google.maps.Marker({
-            position: myLatLng,
-            map: map,
-            title: 'Hello World!'
-        });
-    }
-</script>
+<?php
+echo "<div class='block'>";
+// start a table tag in the HTML
+$count = 0;
+while($list = mysqli_fetch_array($result)){   //Creates a loop to loop through results
+    if($count >= 10)break;
+    echo "<span>" . $list['eventTime'] . " " . $list['moduleId'] . " " . $list['latitude'] . " " . $list['longitude'] . " " . $list['imuEvent'] . "</span>". "<br>";  //$row['index'] the index here is a field name
+    $count++;
+}
+?>
 </div>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwDuh7kjG4WrsgYXnx6dn4d2lKfSvoKLw&callback=initMap"
-        async defer></script>
 </body>
 </html>

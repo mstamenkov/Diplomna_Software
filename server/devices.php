@@ -9,12 +9,12 @@ session_start();
         $result = $stmt->get_result();
     }else{
          require_once "./config.php";
-	 $username = $_GET['username'];
+         $username = $_GET['username'];
          $stmt = $con->prepare("SELECT id FROM users WHERE username = ?");
          $stmt->bind_param('i', $username);
          $stmt->execute();
          $result = $stmt->get_result();
-	 $row = mysqli_fetch_row($result);
+         $row = mysqli_fetch_row($result);
 	 
          $stmt = $con->prepare("SELECT * FROM modules WHERE userId = ?");
          $stmt->bind_param('i', $row[0]);
@@ -67,6 +67,7 @@ session_start();
         <div style="display: inline-flex">
             <span><li><a href ="index.php">Начало</a></li></span>
             <span><li><a href ="./devices.php" id="active">Модули</a></li></span>
+            <span><li><a href ="./events.php">Данни</a></li></span>
             <span><li><a href ="./logout.php">Изход</a></li></span>
         </div>
     </ul>
