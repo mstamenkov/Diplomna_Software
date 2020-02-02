@@ -7,20 +7,7 @@ session_start();
         $stmt->bind_param('i', $_SESSION['user_id']);
         $stmt->execute();
         $result = $stmt->get_result();
-    }else{
-         require_once "./config.php";
-         $username = $_GET['username'];
-         $stmt = $con->prepare("SELECT id FROM users WHERE username = ?");
-         $stmt->bind_param('i', $username);
-         $stmt->execute();
-         $result = $stmt->get_result();
-         $row = mysqli_fetch_row($result);
-	 
-         $stmt = $con->prepare("SELECT * FROM modules WHERE userId = ?");
-         $stmt->bind_param('i', $row[0]);
-         $stmt->execute();
-         $result = $stmt->get_result();
-    }
+    
    
     //echo $modules->id;
 ?>
@@ -80,6 +67,7 @@ while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through re
     echo "<span>" . $row['id'] . "</span>". "<br>";  //$row['index'] the index here is a field name
 
 }
+
 ?>
     <form action='devices.php' method='POST'>
     module ID <input name="moduleid" value=""/>
@@ -89,3 +77,24 @@ while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through re
     </div>
     </body>
     </html>
+<?php
+}else{
+
+         require_once "./config.php";
+         $stmt = $con->prepare("SELECT id FROM users WHERE username = ?");
+         $stmt->bind_param("s", $_GET['username']);
+         $stmt->execute();
+         $result = $stmt->get_result();
+         $row = mysqli_fetch_row($result);
+	 $begin = $_GET['page'];
+	 $end = $begin + 10;
+         $stmt = $con->prepare("SELECT * FROM modules WHERE userId = ? LIMIT ?, ?");
+         $stmt->bind_param('iii', $row[0], $begin, $end);
+         $stmt->execute();
+         $result = $stmt->get_result();
+	 while($row = mysqli_fetch_array($result)){
+	     echo $row[0];
+	     echo(' ');
+	 }
+    }
+?>
