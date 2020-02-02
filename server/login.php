@@ -1,10 +1,17 @@
 <?php
     session_start();
-    $username = filter_input(INPUT_POST, 'username');
-    $password = filter_input(INPUT_POST, 'password');
-
-if ( ! empty( $_POST ) ) {
-    if ( isset($username) && isset($password) ) {
+    $username;
+    $password;
+    if(!empty($_GET['apicall'])){
+        $username = $_GET['username'];
+        $password = $_GET['password'];
+	$password = openssl_decrypt($password, 'AES-128-ECB', '2a925de8ca0248d7');
+    }else{
+        $username = filter_input(INPUT_POST, 'username');
+        $password = filter_input(INPUT_POST, 'password');
+    }
+if ( !empty( $_POST ) || !empty($_GET['apicall']) ) {
+    if ( !empty($username) && !empty($password) ) {
         // Getting submitted user data from database
         require_once "./config.php";
         $stmt = $con->prepare("SELECT * FROM users WHERE username = ?");
@@ -20,18 +27,22 @@ if ( ! empty( $_POST ) ) {
 
         // Verify user password and set $_SESSION
         if ( password_verify($password, $user->password ) ) {
-            $_SESSION['user_id'] = $user->id;
-            $_SESSION['username'] = $username;
-            header("Location: ./index.php");
+	    if(empty($_GET['apicall'])){
+                $_SESSION['user_id'] = $user->id;
+                $_SESSION['username'] = $username;
+                header("Location: ./index.php");
+	    }else{
+		echo('OK');
+	    }
         }
         else{
             echo("no match");
             header("refresh:3;url=login.html");
         }
 
-    }
+    }else echo(no);
+
 }
-else echo("no");
     //mysqli_close($link);
 
 ?>

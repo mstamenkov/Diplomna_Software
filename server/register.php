@@ -1,9 +1,20 @@
 <?php
     session_start();
-    $username = filter_input(INPUT_POST, 'username');
-    $password = filter_input(INPUT_POST, 'password');
-    $conf_password = filter_input(INPUT_POST, 'conf_password');
-
+    $username;
+    $password;
+    $conf_password;
+    if(!empty($_GET['apicall'])){
+        $username = $_GET['username'];
+        $password = $_GET['password'];
+        $conf_password = $_GET['conf_password'];
+	$password = openssl_decrypt($password, 'AES-128-ECB', '2a925de8ca0248d7');
+        $conf_password = openssl_decrypt($conf_password, 'AES-128-ECB', '2a925de8ca0248d7');
+    }else{
+        $username = filter_input(INPUT_POST, 'username');
+        $password = filter_input(INPUT_POST, 'password');
+        $conf_password = filter_input(INPUT_POST, 'conf_password');
+        
+    }
     if (!empty($username) and !empty($password) and !empty($conf_password)){
         require_once "./config.php";
         if (mysqli_connect_error()){
@@ -32,8 +43,12 @@
             $password_hash = password_hash($password,PASSWORD_DEFAULT);
             $stmt->bind_param("ss", $username,$password_hash);
                 if ($stmt->execute()) {
-                    echo("OK");
-                    header("Location: ./login.html");
+		    if(empty($_GET['apicall'])){
+			echo('OK');
+                        header("Location: ./login.html");
+		    }else{
+			echo('OK');
+		    }
                 } else {
                     echo "Something went wrong. Please try again later.";
                 }

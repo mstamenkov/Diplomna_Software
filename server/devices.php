@@ -1,12 +1,27 @@
 <?php
 session_start();
-    if (!isset($_SESSION['user_id'])) header('Location: ./login.html');
-
-    require_once "./config.php";
-    $stmt = $con->prepare("SELECT * FROM modules WHERE userId = ?");
-    $stmt->bind_param('i', $_SESSION['user_id']);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    if(empty($_GET['apicall'])){
+        if (!isset($_SESSION['user_id'])) header('Location: ./login.html');
+ 	require_once "./config.php";
+        $stmt = $con->prepare("SELECT * FROM modules WHERE userId = ?");
+        $stmt->bind_param('i', $_SESSION['user_id']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    }else{
+         require_once "./config.php";
+	 $username = $_GET['username'];
+         $stmt = $con->prepare("SELECT id FROM users WHERE username = ?");
+         $stmt->bind_param('i', $username);
+         $stmt->execute();
+         $result = $stmt->get_result();
+	 $row = mysqli_fetch_row($result);
+	 
+         $stmt = $con->prepare("SELECT * FROM modules WHERE userId = ?");
+         $stmt->bind_param('i', $row[0]);
+         $stmt->execute();
+         $result = $stmt->get_result();
+    }
+   
     //echo $modules->id;
 ?>
 <!DOCTYPE html>
