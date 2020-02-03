@@ -44,14 +44,24 @@ session_start();
     $submit = $_POST;
     if($submit){
         $moduleid = filter_input(INPUT_POST, 'moduleid');
-        $stmt = $con->prepare("INSERT INTO modules(id,userId) values(?,?)");
-        $stmt->bind_param("ii",$moduleid,$_SESSION['user_id']);
-        if ($stmt->execute()) {
-            echo("OK");
-            header("Location: ./devices.php");
-        } else {
-            echo "Something went wrong. Please try again later.";
+        $stmt = $con->prepare("SELECT * FROM modules WHERE id = ?");
+        $stmt->bind_param('i', $moduleid);
+        $stmt->execute();
+        $check = $stmt->get_result();
+        if(empty(mysqli_fetch_array($check))){
+            $stmt = $con->prepare("INSERT INTO modules(id,userId) values(?,?)");
+            $stmt->bind_param("ii",$moduleid,$_SESSION['user_id']);
+            if ($stmt->execute()) {
+                echo("OK");
+                header("Location: ./devices.php");
+            } else {
+                echo "Something went wrong. Please try again later.";
+            }
+        }else{
+            echo ("This module is already registered");
+            header("refresh:3;url=./devices.php");
         }
+
     }
 
 ?>
@@ -59,7 +69,7 @@ session_start();
 <div class="header_box">
     <ul>
         <div class="header">
-            <img src="./textures/logo.png" alt="logo">
+            <img src="" alt="logo">
         </div>
         <div id="text">
             <span style="font-weight: bold; margin-bottom: 1%">Народна Република България</span><br>Министерство на транспорта<br/>Главно управление на пътищата

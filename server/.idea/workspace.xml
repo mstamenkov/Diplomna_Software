@@ -84,7 +84,7 @@
               <path>
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="root:MySQL for 5.1 - ALARM_SYSTEM@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@26a92e18" type="9fbbdea:ServiceModel$ServiceNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@44c1b19" type="9fbbdea:ServiceModel$ServiceNode" />
               </path>
             </expand>
             <select />
@@ -122,6 +122,7 @@
       <workItem from="1580471517745" duration="5464000" />
       <workItem from="1580504363914" duration="2758000" />
       <workItem from="1580664166217" duration="2726000" />
+      <workItem from="1580728111116" duration="3955000" />
     </task>
     <servers />
   </component>
@@ -182,11 +183,11 @@
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
     <state x="716" y="175" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/65.24.1855.1056@65.24.1855.1056" timestamp="1580389714508" />
-    <state x="582" y="331" key="com.intellij.ide.util.TipDialog" timestamp="1580664166194">
+    <state x="582" y="331" key="com.intellij.ide.util.TipDialog" timestamp="1580734649956">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state x="582" y="331" key="com.intellij.ide.util.TipDialog/65.24.1632.944@65.24.1632.944" timestamp="1579131345205" />
-    <state x="582" y="331" key="com.intellij.ide.util.TipDialog/65.24.1855.1056@65.24.1855.1056" timestamp="1580664166194" />
+    <state x="582" y="331" key="com.intellij.ide.util.TipDialog/65.24.1632.944@65.24.1632.944" timestamp="1580728114447" />
+    <state x="582" y="331" key="com.intellij.ide.util.TipDialog/65.24.1855.1056@65.24.1855.1056" timestamp="1580734649956" />
     <state x="306" y="266" key="new project wizard" timestamp="1580399464014">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
