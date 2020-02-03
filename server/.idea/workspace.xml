@@ -76,17 +76,7 @@
       <list>
         <serviceView>
           <treeState>
-            <expand>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:MySQL for 5.1 - ALARM_SYSTEM@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:MySQL for 5.1 - ALARM_SYSTEM@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@44c1b19" type="9fbbdea:ServiceModel$ServiceNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </treeState>
         </serviceView>
@@ -123,6 +113,7 @@
       <workItem from="1580504363914" duration="2758000" />
       <workItem from="1580664166217" duration="2726000" />
       <workItem from="1580728111116" duration="3955000" />
+      <workItem from="1580734650328" duration="407000" />
     </task>
     <servers />
   </component>
