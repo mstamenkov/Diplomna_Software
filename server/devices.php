@@ -30,24 +30,46 @@ session_start();
 <?php
     $submit = $_POST;
     if($submit){
-        $moduleid = filter_input(INPUT_POST, 'moduleid');
-        $stmt = $con->prepare("SELECT * FROM modules WHERE id = ?");
-        $stmt->bind_param('i', $moduleid);
-        $stmt->execute();
-        $check = $stmt->get_result();
-        if(empty(mysqli_fetch_array($check))){
-            $stmt = $con->prepare("INSERT INTO modules(id,userId) values(?,?)");
-            $stmt->bind_param("ii",$moduleid,$_SESSION['user_id']);
-            if ($stmt->execute()) {
-                echo("OK");
-                header("Location: ./devices.php");
-            } else {
-                echo "Something went wrong. Please try again later.";
+        if(filter_input(INPUT_POST, 'type') == 'add'){
+            $moduleid = filter_input(INPUT_POST, 'moduleid');
+            $stmt = $con->prepare("SELECT * FROM modules WHERE id = ?");
+            $stmt->bind_param('i', $moduleid);
+            $stmt->execute();
+            $check = $stmt->get_result();
+            if(empty(mysqli_fetch_array($check))){
+                $stmt = $con->prepare("INSERT INTO modules(id,userId) values(?,?)");
+                $stmt->bind_param("ii",$moduleid,$_SESSION['user_id']);
+                if ($stmt->execute()) {
+                    echo("OK");
+                    header("Location: ./devices.php");
+                } else {
+                    echo "Something went wrong. Please try again later.";
+                }
+            }else{
+                echo ("This module is already registered");
+                header("refresh:3;url=./devices.php");
             }
         }else{
-            echo ("This module is already registered");
-            header("refresh:3;url=./devices.php");
+            $moduleid = filter_input(INPUT_POST, 'moduleid');
+            $stmt = $con->prepare("SELECT * FROM modules WHERE id = ?");
+            $stmt->bind_param('i', $moduleid);
+            $stmt->execute();
+            $check = $stmt->get_result();
+            if(!empty(mysqli_fetch_array($check))){
+                $stmt = $con->prepare("DELETE FROM modules WHERE id = ?");
+                $stmt->bind_param("i",$moduleid);
+                if ($stmt->execute()) {
+                    echo("OK");
+                    header("Location: ./devices.php");
+                } else {
+                    echo "Something went wrong. Please try again later.";
+                }
+            }else{
+                echo ("This module is already deleted");
+                header("refresh:3;url=./devices.php");
+            }
         }
+
 
     }
 
@@ -80,9 +102,10 @@ while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through re
 
 ?>
     <form action='devices.php' method='POST'>
-    module ID <input name="moduleid" value=""/>
-
-    <a href="#"><button type="submit" style="margin-left: 84px">Save</button></a>
+    module ID <input name="moduleid" value=""/> <br>
+    <input type="radio" name="type" value="delete"> Delete<br>
+    <input type="radio" name="type" value="add" checked="checked"> Add<br>
+    <a href="#"><button type="submit" style="margin-left: 84px">Submit</button></a>
     </form>
     </div>
     </body>
