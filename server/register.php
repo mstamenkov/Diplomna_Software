@@ -1,4 +1,5 @@
 <?php
+
     session_start();
     $username;
     $password;
@@ -60,6 +61,7 @@
     }
     else{
         echo "username or password should not be empty";
+        header("refresh:3;url=register.html");
         die();
     }
 
