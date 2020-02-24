@@ -122,6 +122,7 @@
       <workItem from="1582197576207" duration="1809000" />
       <workItem from="1582215075190" duration="744000" />
       <workItem from="1582548762606" duration="4683000" />
+      <workItem from="1582577147878" duration="1108000" />
     </task>
     <servers />
   </component>
@@ -138,14 +139,14 @@
     </state>
     <state x="481" y="145" key="#SQL_Dialects/65.24.1632.944@65.24.1632.944" timestamp="1579118587520" />
     <state x="376" y="123" width="800" height="677" key="#SQL_Dialects/67.27.1213.773@67.27.1213.773" timestamp="1581585195095" />
-    <state x="592" y="201" key="#SQL_Resolution_Scopes" timestamp="1579128919372">
+    <state x="592" y="201" key="#SQL_Resolution_Scopes" timestamp="1582577476070">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state x="592" y="201" key="#SQL_Resolution_Scopes/65.24.1855.1056@65.24.1855.1056" timestamp="1579128919372" />
-    <state x="522" y="192" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580664308803">
+    <state x="592" y="201" key="#SQL_Resolution_Scopes/65.24.1855.1056@65.24.1855.1056" timestamp="1582577476070" />
+    <state x="522" y="192" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582577515050">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
-    <state x="522" y="192" key="#com.intellij.execution.impl.EditConfigurationsDialog/65.24.1855.1056@65.24.1855.1056" timestamp="1580664308803" />
+    <state x="522" y="192" key="#com.intellij.execution.impl.EditConfigurationsDialog/65.24.1855.1056@65.24.1855.1056" timestamp="1582577515050" />
     <state x="356" y="149" width="624" height="526" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1581584077354">
       <screen x="67" y="27" width="1213" height="773" />
     </state>
@@ -180,6 +181,10 @@
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
     <state x="480" y="117" key="SettingsEditor/65.24.1855.1056@65.24.1855.1056" timestamp="1580399466431" />
+    <state width="200" height="482" key="SqlResolveConfigurable" timestamp="1582577470029">
+      <screen x="65" y="24" width="1855" height="1056" />
+    </state>
+    <state width="200" height="482" key="SqlResolveConfigurable/65.24.1855.1056@65.24.1855.1056" timestamp="1582577470029" />
     <state x="754" y="296" key="com.intellij.database.run.ParametersPanel.Standalone" timestamp="1580390764411">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
@@ -188,11 +193,11 @@
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
     <state x="716" y="175" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/65.24.1855.1056@65.24.1855.1056" timestamp="1580389714508" />
-    <state x="582" y="331" key="com.intellij.ide.util.TipDialog" timestamp="1580734649956">
+    <state x="582" y="331" key="com.intellij.ide.util.TipDialog" timestamp="1582577151277">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
     <state x="582" y="331" key="com.intellij.ide.util.TipDialog/65.24.1632.944@65.24.1632.944" timestamp="1580728114447" />
-    <state x="582" y="331" key="com.intellij.ide.util.TipDialog/65.24.1855.1056@65.24.1855.1056" timestamp="1580734649956" />
+    <state x="582" y="331" key="com.intellij.ide.util.TipDialog/65.24.1855.1056@65.24.1855.1056" timestamp="1582577151277" />
     <state x="306" y="266" key="new project wizard" timestamp="1580399464014">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
