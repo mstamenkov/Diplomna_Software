@@ -1,6 +1,22 @@
 <?php
+ini_set('display_errors',1);
 session_start();
 if(!isset($_SESSION['user_id']))header('Location: ./login.html');
+?>
+
+<?php
+$id = $_SESSION['user_id'];
+require_once "./config.php";
+$stmt = $con->prepare("SELECT * FROM moduleData LEFT JOIN modules m on m.userId = $id WHERE moduleId = m.id ;");
+//$stmt->bind_param('i', $row[0]);
+$stmt->execute();
+$result = $stmt->get_result();
+while($list = mysqli_fetch_array($result)){   //Creates a loop to loop through results
+    //if($count >= 10)break;
+    //echo "<span>" . $list['eventTime'] . " " . $list['moduleId'] . " " . $list['latitude'] . " " . $list['longitude'] . " " . $list['imuEvent'] . "</span>". "<br>";
+    $lat = $list['latitude'];
+    $lng = $list['longitude'];
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -36,7 +52,7 @@ if(!isset($_SESSION['user_id']))header('Location: ./login.html');
             <img src="./textures/logo.png" alt="logo">
         </div>
         <div id="text">
-            <span style="font-weight: bold; margin-bottom: 1%">Народна Република България</span><br>Министерство на транспорта<br/>Главно управление на пътищата
+            <span style="font-weight: bold; margin-bottom: 1%">ДСО "Респром"</span><br>Завод за автомобилна електроника "Бистра Башева"<br>Главно управление по контрол на трафика
         </div>
         <div style="display: inline-flex">
             <span><li><a href ="#" id="active">Начало</a></li></span>
@@ -48,9 +64,13 @@ if(!isset($_SESSION['user_id']))header('Location: ./login.html');
 </div>
 <div class="block" style="height: 90%">
 <div id="map"></div>
-<script>
+
+    <script>
     function initMap() {
-        var myLatLng = {lat: 42.698334, lng: 23.319941};
+        var lat = <?php echo $lng ?>;
+        var lng = <?php echo $lat; ?>;
+        //alert(lat);
+        var myLatLng = {lat,lng};
 
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 4,

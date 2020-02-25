@@ -18,9 +18,10 @@ CREATE TABLE moduleData(
 	id INT primary key auto_increment,
     eventTime datetime not null,
     moduleId INT not null,
-    latitude DECIMAL(10, 8) not null,
-    longitude DECIMAL(11, 8) NOT NULL,
-    imuEvent INT not null,
+    latitude DECIMAL(10, 8),
+    longitude DECIMAL(11, 8),
+    imuEvent INT,
+    rfidEvent INT,
     foreign key (moduleId) references modules(id) on update cascade on delete cascade
 );
 

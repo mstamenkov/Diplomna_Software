@@ -4,7 +4,7 @@ if(empty($_GET['apicall'])){
     require_once "./config.php";
     if (!isset($_SESSION['user_id'])) header('Location: ./login.html');
     $id = $_SESSION['user_id'];
-    $stmt = $con->prepare("SELECT * FROM moduleData LEFT JOIN modules m on m.userId = $id WHERE moduleId = m.id ;");
+    $stmt = $con->prepare("SELECT * FROM  (SELECT * FROM moduleData ORDER BY id DESC LIMIT 20) sub LEFT JOIN modules m on m.userId = $id WHERE moduleId = m.id ORDER BY sub.id ASC ;");
     //$stmt->bind_param('i', $row[0]);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -44,7 +44,7 @@ if(empty($_GET['apicall'])){
             <img src="./textures/logo.png" alt="logo">
         </div>
         <div id="text">
-            <span style="font-weight: bold; margin-bottom: 1%">Народна Република България</span><br>Министерство на транспорта<br/>Главно управление на пътищата
+            <span style="font-weight: bold; margin-bottom: 1%">ДСО "Респром"</span><br>Завод за автомобилна електроника "Бистра Башева"<br>Главно управление по контрол на трафика
         </div>
         <div style="display: inline-flex">
             <span><li><a href ="index.php">Начало</a></li></span>
@@ -59,7 +59,7 @@ echo "<div class='block'>";
 // start a table tag in the HTML
 $count = 0;
 while($list = mysqli_fetch_array($result)){   //Creates a loop to loop through results
-    if($count >= 10)break;
+    //if($count >= 10)break;
     echo "<span>" . $list['eventTime'] . " " . $list['moduleId'] . " " . $list['latitude'] . " " . $list['longitude'] . " " . $list['imuEvent'] . "</span>". "<br>";  //$row['index'] the index here is a field name
     $count++;
 }

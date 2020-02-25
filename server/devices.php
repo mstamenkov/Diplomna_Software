@@ -78,10 +78,10 @@ session_start();
 <div class="header_box">
     <ul>
         <div class="header">
-            <img src="" alt="logo">
+            <img src="./textures/logo.png" alt="logo">
         </div>
         <div id="text">
-            <span style="font-weight: bold; margin-bottom: 1%">Народна Република България</span><br>Министерство на транспорта<br/>Главно управление на пътищата
+            <span style="font-weight: bold; margin-bottom: 1%">ДСО "Респром"</span><br>Завод за автомобилна електроника "Бистра Башева"<br>Главно управление по контрол на трафика
         </div>
         <div style="display: inline-flex">
             <span><li><a href ="index.php">Начало</a></li></span>
