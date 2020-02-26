@@ -7,7 +7,7 @@ if(empty($_GET['apicall'])){
     $stmt = $con->prepare("SELECT * FROM modules WHERE userId = ?");
     $stmt->bind_param('i', $id);
     $stmt->execute();
-    $moduleId = $stmt->get_result();
+    $modulesIdArray = $stmt->get_result();
 }else{
     require_once "./config.php";
     $username = $_GET['username'];
@@ -57,30 +57,48 @@ if(empty($_GET['apicall'])){
     <form action='events.php' method='POST'>
     <select name="moduleId">
         <?php
-        while($res = mysqli_fetch_array($moduleId)){   //Creates a loop to loop through results
+        while($res = mysqli_fetch_array($modulesIdArray)){   //Creates a loop to loop through results
             echo "<option value=".$res['id'] .">" .$res['id']. "</option>";
 
         }
         echo "</select>";
         echo "<button type=\"submit\">Submit</button>";
         echo "</form>";
-        $temp = filter_input(INPUT_POST,'moduleId');
-        $stmt = $con->prepare("SELECT * FROM  (SELECT * FROM moduleData ORDER BY id DESC LIMIT 20) sub LEFT JOIN modules m on m.userId = $id WHERE moduleId = m.id AND moduleId = $temp ORDER BY sub.id ASC ;");
+        $moduleId = filter_input(INPUT_POST,'moduleId');
+        $stmt = $con->prepare("SELECT * FROM  (SELECT * FROM moduleData ORDER BY id DESC LIMIT 20) sub LEFT JOIN modules m on m.userId = $id WHERE moduleId = m.id AND moduleId = ? ORDER BY sub.id ASC ;");
+        $stmt->bind_param('i', $moduleId);
         $stmt->execute();
         $result = $stmt->get_result();
-        echo "<table class='table'>";
-        echo "<tr>";
-        echo "<th>Час и дата</th>";
-        echo "<th>КН на модул</th>";
-        echo "<th>latitude</th>";
-        echo "<th>longtitude</th>";
-        echo "<th>Данни IMU</th>";
-        echo "</tr>";
+        if($moduleId[0] == '1'){
+            echo "<table class='table'>";
+            echo "<tr>";
+            echo "<th>Час и дата</th>";
+            echo "<th>КН на модул</th>";
+            echo "<th>latitude</th>";
+            echo "<th>longtitude</th>";
+            echo "<th>Данни IMU</th>";
+            echo "</tr>";
             while($list = mysqli_fetch_array($result)){   //Creates a loop to loop through results
                 echo "<tr>";
-                echo "<td>" . $list['eventTime'] . "</td><td>" . $list['moduleId'] . "</td><td>" . $list['latitude'] . "</td><td>" . $list['longitude'] . "</td><td>" . $list['imuEvent'] . "</td>";  //$row['index'] the index here is a field name
+                echo "<td>" . $list['eventTime'] . "</td><td>" . $list['moduleId'] . "</td><td>" . $list['latitude'] . "</td><td>" . $list['longitude'] . "</td><td>" . $list['imuEvent'] . "</td>";
                 echo "</tr>";
             }
+        }
+        else{
+            echo "<table class='table'>";
+            echo "<tr>";
+            echo "<th>Час и дата</th>";
+            echo "<th>КН на модул</th>";
+            echo "<th>Шок сензор</th>";
+            echo "<th>RFID потвърждение</th>";
+            echo "</tr>";
+            while($list = mysqli_fetch_array($result)){   //Creates a loop to loop through results
+                echo "<tr>";
+                echo "<td>" . $list['eventTime'] . "</td><td>" . $list['moduleId'] . "</td><td>" . $list['shockEvent'] . "</td><td>" . $list['rfidEvent'] . "</td>";
+                echo "</tr>";
+            }
+        }
+
         ?>
 </div>
 </body>

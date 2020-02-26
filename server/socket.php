@@ -1,8 +1,6 @@
 <?php
 $serv=stream_socket_server("tcp://78.130.176.59:5000",$errno,$errstr) or die("create server failed");
-$id;
-$flagGPS = 0;
-$flagIMU = 0;
+$flagGPSIMU = 0;
 $flagShockRfid = 0;
 for($i=0; $i < 2; $i ++) {
     if (pcntl_fork() == 0 ) {
@@ -29,22 +27,9 @@ for($i=0; $i < 2; $i ++) {
                             fwrite(STDOUT, " ");
                             fwrite(STDOUT, $langDecimal);
                             fwrite(STDOUT, "\n");
-                            $flagGPS = 1;
-                            /*if($id[0] == 1){
-                                fwrite(STDOUT, $id);
-                                require_once "./config.php";
-                                $stmt = ("INSERT INTO moduleData(eventTime, moduleId, latitude, longitude) values(NOW(),$id,$langDecimal,$longDecimal)");
-                                if (mysqli_query($con, $stmt)) {
-                                    //echo "New record created successfully";
-                                } else {
-                                    echo "Error: " . $stmt . "<br>" . $con->error;
-                                }
-                            }*/
-                            //echo $long;
-                            //echo "<br>";
-                            //echo $lang;
+                            $flagGPSIMU = 1;
                         }else if(strlen($request) == 7){
-                            $id = substr($request,0,5);
+                            $idShock = substr($request,0,5);
                             $shock = substr($request,5,1);
                             $rfid = substr($request,6,1);
                             $flagShockRfid =1;
@@ -57,8 +42,7 @@ for($i=0; $i < 2; $i ++) {
                             $flagIMU = 1;
                         }*/
 
-                        if($flagGPS == 1){
-
+                        if($flagGPSIMU == 1){
                             require_once "./config.php";
                             fwrite(STDOUT, $imu);
                             $stmt = ("INSERT INTO moduleData(eventTime, moduleId, latitude, longitude,imuEvent) values(NOW(),$gpsIdSub,$langDecimal,$longDecimal,$imu)");
@@ -68,9 +52,18 @@ for($i=0; $i < 2; $i ++) {
                             } else {
                                 echo "Error: " . $stmt . "<br>" . $con->error;
                             }
-                            $flagIMU=0;
-                            $flagGPS=0;
+                            $flagGPSIMU=0;
 
+                        }
+                        if($flagShockRfid == 1){
+                            require_once "./config.php";
+                            $stmt = ("INSERT INTO moduleData(eventTime, moduleId, shockEvent, rfidEvent) values(NOW(),$idShock,$shock,$rfid)");
+                            if (mysqli_query($con, $stmt)) {
+                                echo "New record created successfully";
+                            } else {
+                                echo "Error: " . $stmt . "<br>" . $con->error;
+                            }
+                            $flagGPSIMU=0;
                         }
                         if($conn == false) break;
                 }

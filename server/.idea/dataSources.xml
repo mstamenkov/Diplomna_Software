@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="ALARM_SYSTEM@localhost" uuid="1c0af9f0-589b-48d3-86e0-8c678ccaaa2e">
+    <data-source source="LOCAL" name="ALARM_SYSTEM@localhost" uuid="9a42ccf5-ed6f-42f9-ae87-b72a9d88baa8">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

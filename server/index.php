@@ -7,7 +7,7 @@ if(!isset($_SESSION['user_id']))header('Location: ./login.html');
 <?php
 $id = $_SESSION['user_id'];
 require_once "./config.php";
-$stmt = $con->prepare("SELECT * FROM moduleData LEFT JOIN modules m on m.userId = $id WHERE moduleId = m.id ;");
+$stmt = $con->prepare("SELECT * FROM moduleData LEFT JOIN modules m on m.userId = $id WHERE moduleId = m.id AND latitude IS NOT NULL AND longitude IS NOT NULL ;");
 //$stmt->bind_param('i', $row[0]);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -68,7 +68,6 @@ while($list = mysqli_fetch_array($result)){   //Creates a loop to loop through r
     function initMap() {
         var lat = <?php echo $lng ?>;
         var lng = <?php echo $lat; ?>;
-        //alert(lat);
         var myLatLng = {lat,lng};
 
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -79,7 +78,7 @@ while($list = mysqli_fetch_array($result)){   //Creates a loop to loop through r
         var marker = new google.maps.Marker({
             position: myLatLng,
             map: map,
-            title: 'Hello World!'
+            title: 'Вашата кола е тук'
         });
     }
 </script>
