@@ -4,6 +4,7 @@ ul {
     padding-bottom: 0.5%;
     overflow: hidden;
     background-image: url(./textures/vf.png);
+    background:#3498db;
     margin: 16px 0;
     text-align: center;
 
@@ -11,6 +12,22 @@ ul {
 
 span{
     color:white;
+}
+
+table, th, td {
+    text-align: center;
+    color: white;
+    border: 1px solid white;
+    align-content: center;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 1%;
+    border-collapse: collapse;
+    padding: 1%;
+}
+
+td{
+    width: 170px;
 }
 
 li {
@@ -23,7 +40,7 @@ li a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    font-family: verdana;
+    font-family: sans-serif;
     font-size: 18px;
 }
 
@@ -45,11 +62,17 @@ li a:hover:not(.active){
 }
 
 body {
-    background-image: url(textures/block_background.jpg);
+    background-image: url(./textures/background.png);
+    background:#3498db;
     background-repeat: repeat-y;
     background-size: cover;
     margin:0 5%;
     line-height: 1.2;
+    font-family: 'Open Sans', sans-serif;
+    margin: 0 auto 0 auto;
+    width:100%;
+    text-align:center;
+    margin: 20px 0px 20px 0px;
 
 }
 #text{
@@ -67,11 +90,14 @@ body {
     top: 70px;
     padding: 5px;
     margin-left: 1%;
+    margin: 0;
 }
 
 .block{
-    background-color: rgba(144, 144, 144, 0.55);
-    padding-bottom: 5%;
+    background-color: rgba(144, 144, 144, 0.72);
+    padding: 1%;
+    color: white;
+    margin: 1.4%;
 
 }
 
@@ -187,17 +213,6 @@ label{
     display: none;
     text-align: center;
 
-}
-
-
-
-body{
-    font-family: 'Open Sans', sans-serif;
-    background:#3498db;
-    margin: 0 auto 0 auto;
-    width:100%;
-    text-align:center;
-    margin: 20px 0px 20px 0px;
 }
 
 p{

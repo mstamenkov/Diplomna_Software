@@ -24,7 +24,6 @@ while($list = mysqli_fetch_array($result)){   //Creates a loop to loop through r
     <title>ГУП - Информационна система</title>
     <link rel="icon" href="https://cache2.24chasa.bg/Images/Cache/160/Image_7034160_126.jpg">
     <meta charset="utf-8">
-    <link href="https://www.bgtoll.bg/content/assets/plugins/bootstrap-4.0.0/css/bootstrap.min.css" id="bootstrap-css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="style.css" type="text/css">
 
     <meta http-equiv="content-language" content="en-us, bg" />
@@ -62,7 +61,7 @@ while($list = mysqli_fetch_array($result)){   //Creates a loop to loop through r
         </div>
     </ul>
 </div>
-<div class="block" style="height: 90%">
+<div class="block" style="height: 80%; margin: 1% 2% 0 2%;">
 <div id="map"></div>
 
     <script>

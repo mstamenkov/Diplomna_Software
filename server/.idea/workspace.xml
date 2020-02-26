@@ -126,6 +126,8 @@
       <workItem from="1582639818876" duration="8545000" />
       <workItem from="1582714557260" duration="111000" />
       <workItem from="1582714738001" duration="3982000" />
+      <workItem from="1582730359137" duration="9707000" />
+      <workItem from="1582740103243" duration="3662000" />
     </task>
     <servers />
   </component>
@@ -196,12 +198,12 @@
       <screen x="65" y="24" width="1855" height="1056" />
     </state>
     <state x="716" y="175" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/65.24.1855.1056@65.24.1855.1056" timestamp="1580389714508" />
-    <state x="405" y="247" key="com.intellij.ide.util.TipDialog" timestamp="1582714740403">
-      <screen x="0" y="0" width="1280" height="760" />
+    <state x="582" y="331" key="com.intellij.ide.util.TipDialog" timestamp="1582740152393">
+      <screen x="65" y="24" width="1855" height="1056" />
     </state>
     <state x="405" y="247" key="com.intellij.ide.util.TipDialog/0.0.1280.760@0.0.1280.760" timestamp="1582714740403" />
     <state x="582" y="331" key="com.intellij.ide.util.TipDialog/65.24.1632.944@65.24.1632.944" timestamp="1582639822111" />
-    <state x="582" y="331" key="com.intellij.ide.util.TipDialog/65.24.1855.1056@65.24.1855.1056" timestamp="1582577151277" />
+    <state x="582" y="331" key="com.intellij.ide.util.TipDialog/65.24.1855.1056@65.24.1855.1056" timestamp="1582740152393" />
     <state x="306" y="266" key="new project wizard" timestamp="1580399464014">
       <screen x="65" y="24" width="1855" height="1056" />
     </state>

@@ -17,7 +17,7 @@ session_start();
     <title>ГУП - Информационна система</title>
     <link rel="icon" href="https://cache2.24chasa.bg/Images/Cache/160/Image_7034160_126.jpg">
     <meta charset="utf-8">
-    <link href="https://www.bgtoll.bg/content/assets/plugins/bootstrap-4.0.0/css/bootstrap.min.css" id="bootstrap-css" rel="stylesheet" type="text/css">
+    <!--<link href="https://www.bgtoll.bg/content/assets/plugins/bootstrap-4.0.0/css/bootstrap.min.css" id="bootstrap-css" rel="stylesheet" type="text/css"> -->
     <link rel="stylesheet" href="style.css" type="text/css">
 
     <meta http-equiv="content-language" content="en-us, bg" />
@@ -91,22 +91,29 @@ session_start();
         </div>
     </ul>
 </div>
-<?php
-echo "<div class='block'>";
-// start a table tag in the HTML
-
-while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
-    echo "<span>" . $row['id'] . "</span>". "<br>";  //$row['index'] the index here is a field name
-
-}
-
-?>
-    <form action='devices.php' method='POST'>
-    module ID <input name="moduleid" value=""/> <br>
-    <input type="radio" name="type" value="delete"> Delete<br>
-    <input type="radio" name="type" value="add" checked="checked"> Add<br>
-    <a href="#"><button type="submit" style="margin-left: 84px">Submit</button></a>
+    <div class='block'>
+        <form action='devices.php' method='POST'>
+            <label for="moduleid">Module ID</label>
+            <input name="moduleid" value=""/>
+            <label for="add">Add</label>
+            <input type="radio" name="type" value="add" checked="checked">
+            <label for="delete">Delete</label>
+            <input type="radio" name="type" value="delete">
+            <button type="submit">Submit</button>
     </form>
+        <?php
+        //echo "<div class='block'>";
+        echo "<table class='table'>";
+        echo "<tr>";
+        echo "<th>КН на регистрирани модули</th>";
+        echo "</tr>";
+        while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
+            echo "<tr>";
+            echo "<td>" . $row['id'] . "</td>";  //$row['index'] the index here is a field name
+            echo "</tr>";
+        }
+        echo "</table>";
+        ?>
     </div>
     </body>
     </html>

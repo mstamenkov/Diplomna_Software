@@ -4,10 +4,10 @@ if(empty($_GET['apicall'])){
     require_once "./config.php";
     if (!isset($_SESSION['user_id'])) header('Location: ./login.html');
     $id = $_SESSION['user_id'];
-    $stmt = $con->prepare("SELECT * FROM  (SELECT * FROM moduleData ORDER BY id DESC LIMIT 20) sub LEFT JOIN modules m on m.userId = $id WHERE moduleId = m.id ORDER BY sub.id ASC ;");
-    //$stmt->bind_param('i', $row[0]);
+    $stmt = $con->prepare("SELECT * FROM modules WHERE userId = ?");
+    $stmt->bind_param('i', $id);
     $stmt->execute();
-    $result = $stmt->get_result();
+    $moduleId = $stmt->get_result();
 }else{
     require_once "./config.php";
     $username = $_GET['username'];
@@ -15,8 +15,7 @@ if(empty($_GET['apicall'])){
     $stmt->bind_param('i', $username);
     $stmt->execute();
     $result = $stmt->get_result();
-    $row = mysqli_fetch_row($result);
-
+    //$row = mysqli_fetch_row($result);
 }
 
 //echo $modules->id;
@@ -27,7 +26,6 @@ if(empty($_GET['apicall'])){
     <title>ГУП - Информационна система</title>
     <link rel="icon" href="https://cache2.24chasa.bg/Images/Cache/160/Image_7034160_126.jpg">
     <meta charset="utf-8">
-    <link href="https://www.bgtoll.bg/content/assets/plugins/bootstrap-4.0.0/css/bootstrap.min.css" id="bootstrap-css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="style.css" type="text/css">
 
     <meta http-equiv="content-language" content="en-us, bg" />
@@ -54,16 +52,36 @@ if(empty($_GET['apicall'])){
         </div>
     </ul>
 </div>
-<?php
-echo "<div class='block'>";
-// start a table tag in the HTML
-$count = 0;
-while($list = mysqli_fetch_array($result)){   //Creates a loop to loop through results
-    //if($count >= 10)break;
-    echo "<span>" . $list['eventTime'] . " " . $list['moduleId'] . " " . $list['latitude'] . " " . $list['longitude'] . " " . $list['imuEvent'] . "</span>". "<br>";  //$row['index'] the index here is a field name
-    $count++;
-}
-?>
+<div class='block'>
+    <label for="moduleId">Choose a module:</label>
+    <form action='events.php' method='POST'>
+    <select name="moduleId">
+        <?php
+        while($res = mysqli_fetch_array($moduleId)){   //Creates a loop to loop through results
+            echo "<option value=".$res['id'] .">" .$res['id']. "</option>";
+
+        }
+        echo "</select>";
+        echo "<button type=\"submit\">Submit</button>";
+        echo "</form>";
+        $temp = filter_input(INPUT_POST,'moduleId');
+        $stmt = $con->prepare("SELECT * FROM  (SELECT * FROM moduleData ORDER BY id DESC LIMIT 20) sub LEFT JOIN modules m on m.userId = $id WHERE moduleId = m.id AND moduleId = $temp ORDER BY sub.id ASC ;");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        echo "<table class='table'>";
+        echo "<tr>";
+        echo "<th>Час и дата</th>";
+        echo "<th>КН на модул</th>";
+        echo "<th>latitude</th>";
+        echo "<th>longtitude</th>";
+        echo "<th>Данни IMU</th>";
+        echo "</tr>";
+            while($list = mysqli_fetch_array($result)){   //Creates a loop to loop through results
+                echo "<tr>";
+                echo "<td>" . $list['eventTime'] . "</td><td>" . $list['moduleId'] . "</td><td>" . $list['latitude'] . "</td><td>" . $list['longitude'] . "</td><td>" . $list['imuEvent'] . "</td>";  //$row['index'] the index here is a field name
+                echo "</tr>";
+            }
+        ?>
 </div>
 </body>
 </html>
