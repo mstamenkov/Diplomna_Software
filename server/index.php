@@ -73,7 +73,7 @@ while($list = mysqli_fetch_array($result)){   //Creates a loop to loop through r
         var myLatLng = {lat,lng};
 
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 4,
+            zoom: 15,
             center: myLatLng
         });
 

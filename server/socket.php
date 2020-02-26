@@ -12,9 +12,13 @@ for($i=0; $i < 2; $i ++) {
             else{
                 while(1){
                         $request = fread($conn,100);
-//                        fwrite(STDOUT, $request);
+                        fwrite(STDOUT, $request);
                         $gpsId = strpos($request,'GNGGA');
                         if($gpsId != false){
+                            $gpsIdSub = substr($request,93,5);
+                            $imu = substr($request,97,1);
+                            fwrite(STDOUT, "Id is:");
+                            fwrite(STDOUT, $gpsIdSub);
                             $longIndex = $gpsId+17;
                             $langIndex = $gpsId+29;
                             $long = substr($request,$longIndex,9);
@@ -46,17 +50,18 @@ for($i=0; $i < 2; $i ++) {
                             $flagShockRfid =1;
                             fwrite(STDOUT, $shock);
                             fwrite(STDOUT, $rfid);
-                        }else if(strlen($request) == 6){
-                            $id = substr($request,0,5);
+                        }/*else if(strlen($request) == 6){
+                            $idIMU = substr($request,0,5);
                             $imu = substr($request,5,1);
                             fwrite(STDOUT, $imu);
                             $flagIMU = 1;
-                        }
+                        }*/
 
-                        if($flagGPS == 1 && $flagIMU == 1){
+                        if($flagGPS == 1){
+
                             require_once "./config.php";
                             fwrite(STDOUT, $imu);
-                            $stmt = ("INSERT INTO moduleData(eventTime, moduleId, latitude, longitude,imuEvent) values(NOW(),$id,$langDecimal,$longDecimal,$imu)");
+                            $stmt = ("INSERT INTO moduleData(eventTime, moduleId, latitude, longitude,imuEvent) values(NOW(),$gpsIdSub,$langDecimal,$longDecimal,$imu)");
                             //fix long and latitude !!!!!!!!!!!!!!
                             if (mysqli_query($con, $stmt)) {
                                 echo "New record created successfully";
@@ -65,6 +70,7 @@ for($i=0; $i < 2; $i ++) {
                             }
                             $flagIMU=0;
                             $flagGPS=0;
+
                         }
                         if($conn == false) break;
                 }
