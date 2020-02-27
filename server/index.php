@@ -7,16 +7,11 @@ if(!isset($_SESSION['user_id']))header('Location: ./login.html');
 <?php
 $id = $_SESSION['user_id'];
 require_once "./config.php";
-$stmt = $con->prepare("SELECT * FROM moduleData LEFT JOIN modules m on m.userId = $id WHERE moduleId = m.id AND latitude IS NOT NULL AND longitude IS NOT NULL ;");
+//$stmt = $con->prepare("SELECT * FROM moduleData LEFT JOIN modules m on m.userId = $id WHERE moduleId = m.id AND latitude IS NOT NULL AND longitude IS NOT NULL ;");
+$stmt = $con->prepare("SELECT * FROM moduleData t1 LEFT JOIN modules m on m.userId = $id WHERE t1.id = (SELECT t2.id FROM moduleData t2 WHERE t2.moduleId = t1.moduleId ORDER BY t2.id DESC LIMIT 1)AND latitude IS NOT NULL AND longitude IS NOT NULL AND moduleId = m.Id;");
 //$stmt->bind_param('i', $row[0]);
 $stmt->execute();
 $result = $stmt->get_result();
-while($list = mysqli_fetch_array($result)){   //Creates a loop to loop through results
-    //if($count >= 10)break;
-    //echo "<span>" . $list['eventTime'] . " " . $list['moduleId'] . " " . $list['latitude'] . " " . $list['longitude'] . " " . $list['imuEvent'] . "</span>". "<br>";
-    $lat = $list['latitude'];
-    $lng = $list['longitude'];
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -66,20 +61,35 @@ while($list = mysqli_fetch_array($result)){   //Creates a loop to loop through r
 
     <script>
     function initMap() {
-        var lat = <?php echo $lng ?>;
-        var lng = <?php echo $lat; ?>;
-        var myLatLng = {lat,lng};
-
+        var lat;
+        var lng;
+        var myLatLng;
+        var bounds = new google.maps.LatLngBounds();
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 15,
             center: myLatLng
         });
-
-        var marker = new google.maps.Marker({
-            position: myLatLng,
-            map: map,
-            title: 'Вашата кола е тук'
-        });
+        <?php
+        $i=0;
+        while($list = mysqli_fetch_array($result)){   //Creates a loop to loop through results
+                $moduleId = $list['moduleId'];
+                $lat = $list['latitude'];
+                $lng = $list['longitude'];
+                $i++;
+                echo "
+                lat = $lng;
+                lng = $lat;
+                myLatLng = {lat,lng};
+                var position = new google.maps.LatLng( lat, lng );
+                bounds.extend( position );
+                var marker = new google.maps.Marker({
+                    position: position,
+                    map: map,
+                    title: '".$moduleId."'
+                });";
+        }
+        ?>
+        map.fitBounds( bounds );
     }
 </script>
 </div>

@@ -74,8 +74,8 @@ if(empty($_GET['apicall'])){
             echo "<tr>";
             echo "<th>Час и дата</th>";
             echo "<th>КН на модул</th>";
-            echo "<th>latitude</th>";
-            echo "<th>longtitude</th>";
+            echo "<th>Географска ширина</th>";
+            echo "<th>Географска дължина</th>";
             echo "<th>Данни IMU</th>";
             echo "</tr>";
             while($list = mysqli_fetch_array($result)){   //Creates a loop to loop through results
