@@ -14,8 +14,8 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ГУП - Информационна система</title>
-    <link rel="icon" href="https://cache2.24chasa.bg/Images/Cache/160/Image_7034160_126.jpg">
+    <title>ГУКТ - Информационна система</title>
+    <link rel="icon" href="./textures/icon.png">
     <meta charset="utf-8">
     <!--<link href="https://www.bgtoll.bg/content/assets/plugins/bootstrap-4.0.0/css/bootstrap.min.css" id="bootstrap-css" rel="stylesheet" type="text/css"> -->
     <link rel="stylesheet" href="style.css" type="text/css">
@@ -93,13 +93,13 @@ session_start();
 </div>
     <div class='block'>
         <form action='devices.php' method='POST'>
-            <label for="moduleid">Module ID</label>
+            <label for="moduleid">КН на модул</label>
             <input name="moduleid" value=""/>
-            <label for="add">Add</label>
-            <input type="radio" name="type" value="add" checked="checked">
-            <label for="delete">Delete</label>
-            <input type="radio" name="type" value="delete">
-            <button type="submit">Submit</button>
+            <label>Добавяне
+            <input type="radio" name="type" value="add" checked="checked"></label>
+            <label>Изтриване
+            <input type="radio" name="type" value="delete"></label>
+            <button type="submit">Изпълни</button>
     </form>
         <?php
         //echo "<div class='block'>";

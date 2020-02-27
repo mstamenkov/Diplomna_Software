@@ -53,7 +53,7 @@ if(empty($_GET['apicall'])){
     </ul>
 </div>
 <div class='block'>
-    <label for="moduleId">Choose a module:</label>
+    <label for="moduleId">Налични модули:</label>
     <form action='events.php' method='POST'>
     <select name="moduleId">
         <?php
@@ -62,7 +62,7 @@ if(empty($_GET['apicall'])){
 
         }
         echo "</select>";
-        echo "<button type=\"submit\">Submit</button>";
+        echo "<button type=\"submit\">Изпрати</button>";
         echo "</form>";
         $moduleId = filter_input(INPUT_POST,'moduleId');
         $stmt = $con->prepare("SELECT * FROM  (SELECT * FROM moduleData ORDER BY id DESC LIMIT 20) sub LEFT JOIN modules m on m.userId = $id WHERE moduleId = m.id AND moduleId = ? ORDER BY sub.id ASC ;");

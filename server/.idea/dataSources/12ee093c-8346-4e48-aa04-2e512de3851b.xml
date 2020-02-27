@@ -972,70 +972,80 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="245" parent="236" name="moduleId">
+    <column id="245" parent="236" name="rfidEvent">
+      <Position>7</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="246" parent="236" name="shockEvent">
+      <Position>8</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="247" parent="236" name="moduleId">
       <ColNames>moduleId</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="246" parent="236" name="PRIMARY">
+    <key id="248" parent="236" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="247" parent="236" name="moduleData_ibfk_1">
+    <foreign-key id="249" parent="236" name="moduleData_ibfk_1">
       <ColNames>moduleId</ColNames>
       <RefTableName>modules</RefTableName>
       <RefColNames>id</RefColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="248" parent="237" name="id">
+    <column id="250" parent="237" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="249" parent="237" name="userId">
+    <column id="251" parent="237" name="userId">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="250" parent="237" name="userId">
+    <index id="252" parent="237" name="userId">
       <ColNames>userId</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="251" parent="237" name="PRIMARY">
+    <key id="253" parent="237" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="252" parent="237" name="modules_ibfk_1">
+    <foreign-key id="254" parent="237" name="modules_ibfk_1">
       <ColNames>userId</ColNames>
       <RefTableName>users</RefTableName>
       <RefColNames>id</RefColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="253" parent="238" name="id">
+    <column id="255" parent="238" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="254" parent="238" name="username">
+    <column id="256" parent="238" name="username">
       <Position>2</Position>
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="255" parent="238" name="password">
+    <column id="257" parent="238" name="password">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="256" parent="238" name="PRIMARY">
+    <key id="258" parent="238" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

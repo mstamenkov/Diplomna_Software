@@ -37,6 +37,10 @@
                 echo("username is already taken");
                 header("refresh:3;url=register.html");
                 die();
+            }else if (!preg_match('/^[a-z1-9]+$/',$username)){
+                echo("Special characters and capital letters not allowed");
+                header("refresh:3;url=register.html");
+                die();
             }
 
             $stmt = $con->prepare("INSERT INTO users(username,password) values(?,?)");
