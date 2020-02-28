@@ -9,7 +9,6 @@ $id = $_SESSION['user_id'];
 require_once "./config.php";
 //$stmt = $con->prepare("SELECT * FROM moduleData LEFT JOIN modules m on m.userId = $id WHERE moduleId = m.id AND latitude IS NOT NULL AND longitude IS NOT NULL ;");
 $stmt = $con->prepare("SELECT * FROM moduleData t1 LEFT JOIN modules m on m.userId = $id WHERE t1.id = (SELECT t2.id FROM moduleData t2 WHERE t2.moduleId = t1.moduleId ORDER BY t2.id DESC LIMIT 1)AND latitude IS NOT NULL AND longitude IS NOT NULL AND moduleId = m.Id;");
-//$stmt->bind_param('i', $row[0]);
 $stmt->execute();
 $result = $stmt->get_result();
 ?>
@@ -70,12 +69,10 @@ $result = $stmt->get_result();
             center: myLatLng
         });
         <?php
-        $i=0;
         while($list = mysqli_fetch_array($result)){   //Creates a loop to loop through results
                 $moduleId = $list['moduleId'];
                 $lat = $list['latitude'];
                 $lng = $list['longitude'];
-                $i++;
                 echo "
                 lat = $lng;
                 lng = $lat;
@@ -89,7 +86,7 @@ $result = $stmt->get_result();
                 });";
         }
         ?>
-        map.fitBounds( bounds );
+        map.fitBounds(bounds);
     }
 </script>
 </div>

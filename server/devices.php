@@ -50,22 +50,34 @@ session_start();
                 header("refresh:3;url=./devices.php");
             }
         }else{
+            $isModuleOwnedBy = 0;
             $moduleid = filter_input(INPUT_POST, 'moduleid');
-            $stmt = $con->prepare("SELECT * FROM modules WHERE id = ?");
-            $stmt->bind_param('i', $moduleid);
-            $stmt->execute();
-            $check = $stmt->get_result();
-            if(!empty(mysqli_fetch_array($check))){
-                $stmt = $con->prepare("DELETE FROM modules WHERE id = ?");
-                $stmt->bind_param("i",$moduleid);
-                if ($stmt->execute()) {
-                    echo("OK");
-                    header("Location: ./devices.php");
-                } else {
-                    echo "Something went wrong. Please try again later.";
+            while($row = mysqli_fetch_array($result)){
+                if($row['id'] == $moduleid){
+                    $isModuleOwnedBy=1;
+                    break;
                 }
-            }else{
-                echo ("This module is already deleted");
+            }
+            if($isModuleOwnedBy){
+                $stmt = $con->prepare("SELECT * FROM modules WHERE id = ?");
+                $stmt->bind_param('i', $moduleid);
+                $stmt->execute();
+                $check = $stmt->get_result();
+                if(!empty(mysqli_fetch_array($check))){
+                    $stmt = $con->prepare("DELETE FROM modules WHERE id = ?");
+                    $stmt->bind_param("i",$moduleid);
+                    if ($stmt->execute()) {
+                        echo("OK");
+                        header("Location: ./devices.php");
+                    } else {
+                        echo "Something went wrong. Please try again later.";
+                    }
+                }else{
+                    echo ("This module is already deleted");
+                    header("refresh:3;url=./devices.php");
+                }
+            }else {
+                echo ("This module is already deleted [2]");
                 header("refresh:3;url=./devices.php");
             }
         }
