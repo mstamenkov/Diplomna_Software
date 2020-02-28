@@ -132,9 +132,29 @@ session_start();
          $stmt->bind_param('iii', $row[0], $begin, $end);
          $stmt->execute();
          $result = $stmt->get_result();
-	 while($row = mysqli_fetch_array($result)){
-	     echo $row[0];
-	     echo(' ');
-	 }
+         while($row = mysqli_fetch_array($result)) {
+         $stmt = $con->prepare("SELECT * FROM moduleData WHERE moduleId = ?");
+         $stmt->bind_param('i', $row[0]);
+         $stmt->execute();
+         $resultData = $stmt->get_result();
+         while ($data = mysqli_fetch_array($resultData)) {
+             echo $data[2];
+             echo(';');
+             echo $data[1];
+             echo(';');
+             echo $data[3];
+             echo(';');
+             echo $data[4];
+             echo(';');
+             echo $data[5];
+             echo(';');
+             echo $data[6];
+             echo(';');
+             echo $data[7];
+             echo(';');
+
+             echo('/');
+         }
+     }
     }
 ?>
