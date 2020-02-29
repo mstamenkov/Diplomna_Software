@@ -14,7 +14,7 @@ for($i=0; $i < 2; $i ++) {
                         $gpsId = strpos($request,'GNGGA');
                         if($gpsId != false){
                             $gpsIdSub = substr($request,93,5);
-                            $imu = substr($request,97,1);
+                            $imu = substr($request,98,1);
                             fwrite(STDOUT, "Id is:");
                             fwrite(STDOUT, $gpsIdSub);
                             $longIndex = $gpsId+17;
@@ -44,7 +44,6 @@ for($i=0; $i < 2; $i ++) {
 
                         if($flagGPSIMU == 1){
                             require_once "./config.php";
-                            fwrite(STDOUT, $imu);
                             $stmt = ("INSERT INTO moduleData(eventTime, moduleId, latitude, longitude,imuEvent) values(NOW(),$gpsIdSub,$langDecimal,$longDecimal,$imu)");
                             //fix long and latitude !!!!!!!!!!!!!!
                             if (mysqli_query($con, $stmt)) {
