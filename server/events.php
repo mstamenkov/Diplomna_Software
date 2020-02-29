@@ -65,8 +65,8 @@ if(empty($_GET['apicall'])){
         echo "<button type=\"submit\">Изпрати</button>";
         echo "</form>";
         $moduleId = filter_input(INPUT_POST,'moduleId');
-        $stmt = $con->prepare("SELECT * FROM  (SELECT * FROM moduleData ORDER BY id DESC LIMIT 20) sub LEFT JOIN modules m on m.userId = $id WHERE moduleId = m.id AND moduleId = ? ORDER BY sub.id ASC ;");
-        $stmt->bind_param('i', $moduleId);
+        $stmt = $con->prepare("SELECT * FROM  (SELECT * FROM moduleData where moduleId = ? ORDER BY id DESC LIMIT 20) sub LEFT JOIN modules m on m.userId = ? and m.id = ? ORDER BY sub.id ASC ;");
+        $stmt->bind_param('iii',$moduleId, $id, $moduleId);
         $stmt->execute();
         $result = $stmt->get_result();
         if($moduleId[0] == '1'){
