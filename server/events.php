@@ -15,16 +15,14 @@ if(empty($_GET['apicall'])){
     $stmt->bind_param('i', $username);
     $stmt->execute();
     $result = $stmt->get_result();
-    //$row = mysqli_fetch_row($result);
 }
 
-//echo $modules->id;
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ГУП - Информационна система</title>
-    <link rel="icon" href="https://cache2.24chasa.bg/Images/Cache/160/Image_7034160_126.jpg">
+    <title>ГУКТ - Информационна система</title>
+    <link rel="icon" href="./textures/icon.png">
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css" type="text/css">
 
@@ -42,7 +40,7 @@ if(empty($_GET['apicall'])){
             <img src="./textures/logo.png" alt="logo">
         </div>
         <div id="text">
-            <span style="font-weight: bold; margin-bottom: 1%">ДСО "Респром"</span><br>Завод за автомобилна електроника "Бистра Башева"<br>Главно управление по контрол на трафика
+            <span style="font-weight: bold; margin-bottom: 1%">Lorem Ipsum</span><br>Lorem Ipsum<br>Главно управление по контрол на трафика
         </div>
         <div style="display: inline-flex">
             <span><li><a href ="index.php">Начало</a></li></span>
@@ -57,45 +55,59 @@ if(empty($_GET['apicall'])){
     <form action='events.php' method='POST'>
     <select name="moduleId">
         <?php
+        $isModuleOwnedBy = 0;
+        $showData = 0;
+        $moduleId = filter_input(INPUT_POST,'moduleId');
+
+        if(!empty($moduleId))$showData = 1;
         while($res = mysqli_fetch_array($modulesIdArray)){   //Creates a loop to loop through results
             echo "<option value=".$res['id'] .">" .$res['id']. "</option>";
-
+            if($res['id'] == $moduleId && $isModuleOwnedBy == 0){
+                $isModuleOwnedBy=1;
+            }
         }
         echo "</select>";
         echo "<button type=\"submit\">Изпрати</button>";
         echo "</form>";
-        $moduleId = filter_input(INPUT_POST,'moduleId');
+
         $stmt = $con->prepare("SELECT * FROM  (SELECT * FROM moduleData where moduleId = ? ORDER BY id DESC LIMIT 20) sub LEFT JOIN modules m on m.userId = ? and m.id = ? ORDER BY sub.id ASC ;");
         $stmt->bind_param('iii',$moduleId, $id, $moduleId);
         $stmt->execute();
         $result = $stmt->get_result();
-        if($moduleId[0] == '1'){
-            echo "<table class='table'>";
-            echo "<tr>";
-            echo "<th>Час и дата</th>";
-            echo "<th>КН на модул</th>";
-            echo "<th>Географска ширина</th>";
-            echo "<th>Географска дължина</th>";
-            echo "<th>Данни IMU</th>";
-            echo "</tr>";
-            while($list = mysqli_fetch_array($result)){   //Creates a loop to loop through results
-                echo "<tr>";
-                echo "<td>" . $list['eventTime'] . "</td><td>" . $list['moduleId'] . "</td><td>" . $list['latitude'] . "</td><td>" . $list['longitude'] . "</td><td>" . $list['imuEvent'] . "</td>";
-                echo "</tr>";
-            }
-        }
-        else{
-            echo "<table class='table'>";
-            echo "<tr>";
-            echo "<th>Час и дата</th>";
-            echo "<th>КН на модул</th>";
-            echo "<th>Шок сензор</th>";
-            echo "<th>RFID потвърждение</th>";
-            echo "</tr>";
-            while($list = mysqli_fetch_array($result)){   //Creates a loop to loop through results
-                echo "<tr>";
-                echo "<td>" . $list['eventTime'] . "</td><td>" . $list['moduleId'] . "</td><td>" . $list['shockEvent'] . "</td><td>" . $list['rfidEvent'] . "</td>";
-                echo "</tr>";
+        if($showData){
+            if($isModuleOwnedBy){
+                if($moduleId[0] == '1'){
+                    echo "<table class='table'>";
+                    echo "<tr>";
+                    echo "<th>Час и дата</th>";
+                    echo "<th>КН на модул</th>";
+                    echo "<th>Географска ширина</th>";
+                    echo "<th>Географска дължина</th>";
+                    echo "<th>Данни IMU</th>";
+                    echo "</tr>";
+                    while($list = mysqli_fetch_array($result)){   //Creates a loop to loop through results
+                        echo "<tr>";
+                        echo "<td>" . $list['eventTime'] . "</td><td>" . $list['moduleId'] . "</td><td>" . $list['latitude'] . "</td><td>" . $list['longitude'] . "</td><td>" . $list['imuEvent'] . "</td>";
+                        echo "</tr>";
+                    }
+                }
+                else{
+                    echo "<table class='table'>";
+                    echo "<tr>";
+                    echo "<th>Час и дата</th>";
+                    echo "<th>КН на модул</th>";
+                    echo "<th>Шок сензор</th>";
+                    echo "<th>RFID потвърждение</th>";
+                    echo "</tr>";
+                    while($list = mysqli_fetch_array($result)){   //Creates a loop to loop through results
+                        echo "<tr>";
+                        echo "<td>" . $list['eventTime'] . "</td><td>" . $list['moduleId'] . "</td><td>" . $list['shockEvent'] . "</td><td>" . $list['rfidEvent'] . "</td>";
+                        echo "</tr>";
+                    }
+                }
+            }else{
+                echo ("Нямате достъп до тези ресурси");
+                header("refresh:3;url=./events.php");
             }
         }
 
