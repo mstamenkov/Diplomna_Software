@@ -15,16 +15,14 @@ if(empty($_GET['apicall'])){
     $stmt->bind_param('i', $username);
     $stmt->execute();
     $result = $stmt->get_result();
-    //$row = mysqli_fetch_row($result);
 }
 
-//echo $modules->id;
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ГУП - Информационна система</title>
-    <link rel="icon" href="https://cache2.24chasa.bg/Images/Cache/160/Image_7034160_126.jpg">
+    <title>ГУКТ - Информационна система</title>
+    <link rel="icon" href="./textures/icon.png">
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css" type="text/css">
 
@@ -42,7 +40,7 @@ if(empty($_GET['apicall'])){
             <img src="./textures/logo.png" alt="logo">
         </div>
         <div id="text">
-            <span style="font-weight: bold; margin-bottom: 1%">ДСО "Респром"</span><br>Завод за автомобилна електроника "Бистра Башева"<br>Главно управление по контрол на трафика
+            <span style="font-weight: bold; margin-bottom: 1%">Lorem Ipsum</span><br>Lorem Ipsum<br>Главно управление по контрол на трафика
         </div>
         <div style="display: inline-flex">
             <span><li><a href ="index.php">Начало</a></li></span>
