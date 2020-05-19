@@ -57,8 +57,6 @@
                     echo "Something went wrong. Please try again later.";
                 }
 
-
-
             mysqli_close($con);
         }
     }
